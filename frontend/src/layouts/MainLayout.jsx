@@ -38,18 +38,25 @@ const MainLayout = () => {
   return (
     <>
       <div className={style.container}>
-
         <header className={style.header}>
           <div className={style.loginHeader}>
             <div>
               Amigo <span>Secreto</span>
             </div>
+            <div>
+            <Link to="/login">
+              <button>
+                Logar
+              </button>
+            </Link>
             <button>
               Criar conta
             </button>
+            </div>
           </div>
         </header>
-        <MainLayoutBody / >
+        <Outlet />
+        {/* <MainLayoutBody / > */}
         <footer className={style.footer}>
             <h3>Depoimentos de Quem Já Usou</h3>
               <ul>

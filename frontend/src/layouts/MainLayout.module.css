@@ -58,66 +58,7 @@
 }
 
 
-.main {
-  display: grid;
-  min-height: 80vh;
-  grid-template-columns: 1fr 1fr;
-  margin: 0px 10%;
-  color: white;
-  font-size: 1rem;
-  align-items: center;
-  justify-content: center;
-  gap: 4rem;
-}
 
-.main * {
-  font-family: "Carter One", system-ui;
-  font-weight: 100;
-  font-style: normal;
-  color: #cdcddc;
-  font-size: 1rem;
-}
-
-.texto h3, .texto p {
-  text-align: right;
-  font-size: 1.5rem;
-}
-
-.textoRight p, .textoRight li {
-  text-align: left;
-}
-
-.textoRight h3 {
-  font-size: 1.5rem;
-}
-
-.texto p, .textoRight p {
-  padding: .5rem 0;
-}
-
-.main ul{
-  text-align: right;
-}
-
-
-.texto li, .textoRight li {
-  padding-left: 2rem;
-}
-
-.imgContainerRight {
-  display: flex;
-  justify-content: left;
-}
-
-.imgContainerLeft {
-  display: flex;
-  justify-content: right;
-}
-
-.img {
-  max-width: 70%;
-  border-radius: 50%;
-}
 
 .footer{
   color: #cdcddc;

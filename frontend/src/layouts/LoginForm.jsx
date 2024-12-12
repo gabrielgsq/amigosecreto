@@ -1,5 +1,6 @@
 import React from 'react';
 import style from "./LoginForm.module.css";
+import { Link } from 'react-router-dom';
 
 function LoginForm() {
   return (
@@ -11,14 +12,13 @@ function LoginForm() {
                 <input type="text" name="email" id="email" placeholder='Ex.: emaildogabriel@gmail.com' />
                 <label htmlFor="password">Senha:</label>
                 <input type="password" name="password" id="password" placeholder='Ex.: ******' />
-                <button>
-                  Entrar
-                </button>
+                <Link to="/home">
+                  <button>
+                    Entrar
+                  </button>
+                </Link>
                 <button>
                   Recuperar senha
-                </button>
-                <button>
-                  Criar Conta
                 </button>
             </div>
         </form>

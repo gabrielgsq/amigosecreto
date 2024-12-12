@@ -1,5 +1,4 @@
 .container {
-    background: linear-gradient(45deg, rgb(44, 44, 144), rgb(119, 16, 119));
     color: black; /* Ajusta a cor do texto para contraste */
     min-height: 100vh; /* Garante que o layout ocupe toda a altura da tela */
     display: flex;

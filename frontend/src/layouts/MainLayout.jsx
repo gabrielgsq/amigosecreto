@@ -28,7 +28,7 @@ const MainLayout = () => {
         setAngulo((prev) => prev + 5); // Incrementa em 5 graus
       }
 
-      body.style.background = `linear-gradient(${currentAngulo}deg, rgb(44, 44, 144), rgb(119, 16, 119))`;
+      body.style.background = `linear-gradient(${currentAngulo}deg, rgb(17, 22, 161), rgb(160, 9, 42))`;
     }, 250);
 
     // Limpa o intervalo ao desmontar
@@ -49,9 +49,12 @@ const MainLayout = () => {
                 Logar
               </button>
             </Link>
+            <Link to="criarconta">
             <button>
               Criar conta
             </button>
+            </Link>
+
             </div>
           </div>
         </header>

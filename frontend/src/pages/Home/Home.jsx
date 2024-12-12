@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Home = () => {
-  return <h2>Welcome to the Home Page</h2>;
+  return <h1>Você está em uma área logada!</h1>;
 };
 
 export default Home;

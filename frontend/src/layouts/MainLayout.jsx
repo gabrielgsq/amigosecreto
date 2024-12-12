@@ -41,7 +41,7 @@ const MainLayout = () => {
         <header className={style.header}>
           <div className={style.loginHeader}>
             <div>
-              Amigo <span>Secreto</span>
+              <Link to="/"><span>Amigo </span><span>Secreto</span></Link>
             </div>
             <div>
             <Link to="/login">
@@ -57,14 +57,7 @@ const MainLayout = () => {
         </header>
         <Outlet />
         {/* <MainLayoutBody / > */}
-        <footer className={style.footer}>
-            <h3>Depoimentos de Quem Já Usou</h3>
-              <ul>
-                <li>🎄 'Organizar nosso amigo secreto ficou muito mais fácil! Adorei!' – Gabriel</li>
-                <li>🎁 'O sistema de gostos pessoais é incrível. Todo mundo amou!' – Carla</li>
-                <li>✨ 'Finalmente um site que realmente resolve o problema do sorteio.' – Lima"</li>
-              </ul>
-        </footer>
+        
       </div>
     </>
   );

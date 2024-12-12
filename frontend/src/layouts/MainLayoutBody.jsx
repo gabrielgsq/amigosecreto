@@ -44,6 +44,14 @@ function MainLayoutBody() {
             <img className={style.img}src="/img/img3.webp" alt="" />
           </div>
         </main>
+        <footer className={style.footer}>
+            <h3>Depoimentos de Quem Já Usou</h3>
+              <ul>
+                <li>🎄 'Organizar nosso amigo secreto ficou muito mais fácil! Adorei!' – Gabriel</li>
+                <li>🎁 'O sistema de gostos pessoais é incrível. Todo mundo amou!' – Carla</li>
+                <li>✨ 'Finalmente um site que realmente resolve o problema do sorteio.' – Lima"</li>
+              </ul>
+        </footer>
     </>
   )
 }

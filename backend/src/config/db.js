@@ -8,8 +8,8 @@ const connectDB = async () => {
 
     try {
         await client.connect();
-        db = client.db(process.env.DB_NAME || 'mydatabase');
-        console.log('Conectado ao MongoDB');
+        db = client.db(process.env.DB_NAME);
+        console.log('Conectado ao MongoDB com autenticação');
     } catch (error) {
         console.error('Erro ao conectar ao MongoDB:', error);
         process.exit(1);

@@ -16,10 +16,11 @@ const AppRoutes = () => {
           <Route index element={<MainLayoutBody />} />
           <Route path="login" element={<LoginForm />} />
           <Route path="criarconta" element={<CriarContaForm />} />
+          <Route path='/home' element={<Home />} />
+          
           <Route path="about" element={<About />} />
           <Route path="dashboard" element={<Dashboard />} />
         </Route>
-        <Route path='/home' element={<Home />} />
       </Routes>
     </Router>
   );

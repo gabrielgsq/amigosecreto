@@ -8,6 +8,44 @@
     justify-content: center;
 }
 
+.menssage {
+    position: fixed;
+    width: 30%;
+    padding: 1rem;
+    text-align: center;
+    top: 25%;
+    background-color: rgb(61, 226, 77);
+    font-weight: 600;
+    font-size: larger;
+    border-radius: 16px;
+    color: rgb(2, 55, 2);
+    animation: fadeInMove 0.3s ease-in-out, fadeOutMove 0.7s ease-in-out 3s;
+    animation-fill-mode: forwards; /* Garante que o estado final permaneça */
+    opacity: 0; /* Inicialmente invisível */
+}
+
+@keyframes fadeInMove {
+    0% {
+      opacity: 0;
+      transform: translateY(-15px); /* Move 10px para cima */
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0); /* Posição normal */
+    }
+  }
+
+  @keyframes fadeOutMove {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-15px);
+    }
+  }
+
 .form {
     background-color: #ccc;
     width: 300px;

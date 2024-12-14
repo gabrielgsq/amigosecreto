@@ -11,6 +11,8 @@ import CriarGrupo from '../components/CriarGrupo.jsx';
 import MeusGrupos from '../components/MeusGrupos.jsx';
 import AlterarSenha from '../components/AlterarSenha.jsx';
 import ExcluirConta from '../components/excluirConta.jsx';
+import Convite from '../components/Convite.jsx';
+import ParticiparOk from '../components/participarOk.jsx';
 
 const AppRoutes = () => {
   return (
@@ -20,6 +22,8 @@ const AppRoutes = () => {
           <Route index element={<MainLayoutBody />} />
           <Route path="login" element={<LoginForm />} />
           <Route path="criarconta" element={<CriarContaForm />} />
+          <Route path="convite/:id" element={<Convite />} />
+          <Route path="confirmado" element={<ParticiparOk />} />
           <Route path="about" element={<About />} />
           <Route path="dashboard" element={<Dashboard />} />
         </Route>

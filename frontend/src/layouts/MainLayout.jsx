@@ -2,12 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import style from './MainLayout.module.css';
 import MainLayoutBody from './mainLayoutBody';
-
+import { useParams } from 'react-router-dom';
 
 
 const MainLayout = () => {
   const [angulo, setAngulo] = useState(45);
   const anguloRef = useRef(angulo);
+  const { id } = useParams(); // Obtém o valor do :id da URL
 
   // Sincronizar o ref com o estado
   useEffect(() => {
@@ -38,10 +39,11 @@ const MainLayout = () => {
   return (
     <>
       <div className={style.container}>
-        <header className={style.header}>
+        {!id ? (
+          <header className={style.header}>
           <div className={style.loginHeader}>
             <div>
-              <Link to="/"><span>Amigo </span><span>Secreto</span></Link>
+              <Link to="/"><span>Amigo</span><span>Secreto</span></Link>
             </div>
             <div>
             <Link to="/login">
@@ -58,6 +60,10 @@ const MainLayout = () => {
             </div>
           </div>
         </header>
+          ) : (
+          <></>
+          )}
+        
         <Outlet />
         {/* <MainLayoutBody / > */}
         

@@ -1,24 +1,59 @@
-const { getDB } = require('../config/db');
-
-const getAllGroups = async (req, res) => {
-    try {
-        const db = getDB();
-        const groups = await db.collection('groups').find().toArray();
-        res.json(groups);
-    } catch (error) {
-        res.status(500).json({ message: 'Erro ao buscar grupos', error });
-    }
-};
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const { ObjectId } = require('mongodb');
 
 const createGroup = async (req, res) => {
-    try {
-        const db = getDB();
-        const newGroup = req.body;
-        const result = await db.collection('groups').insertOne(newGroup);
-        res.status(201).json(result.ops[0]);
-    } catch (error) {
-        res.status(400).json({ message: 'Erro ao criar grupo', error });
+    const { groupName } = req.body
+    const {id, email} = req.user
+    const newGroup = {
+        groupName,
+        ownerId: id,
+        ownerEmail: email,
+        open: true
     }
+    await global.connection.collection('groups').insertOne(newGroup)
+    return res.status(200).send({ message: "Grupo Criado!" })
+        // const bcrypt = require('bcrypt');
+    
+        // const findEmail = await global.connection.collection("users").find({email:email}).toArray()
+        // if(!findEmail.length){
+        //     const newUser = {
+        //         email,
+        //         senha: await bcrypt.hash(senha, 12)
+        //     }
+        //     await global.connection.collection('users').insertOne(newUser)
+        //     return res.status(200).send({menssage:"Cadastro realizado com sucesso"})
+        // }else{
+        //     return res.status(409).send({menssage:"E-mail já cadastrado"})
+        // }    
 };
 
-module.exports = { getAllGroups, createGroup };
+const myGroups = async (req, res) => {
+    const {id, email} = req.user
+    const findGroups = await global.connection.collection("groups").find({ownerEmail:email}).toArray()
+    return res.status(200).send({ message: "ok",groups: findGroups})
+};
+
+const delGroup = async (req, res) => {
+    const rawId = req.body.id
+    const id = new ObjectId(rawId);
+
+    const dbResponse = await global.connection.collection("groups").deleteOne({ _id: id });
+    return res.status(200).send({ message: "ok"})
+};
+
+const sortearGroup = async (req, res) => {
+    const rawId = req.body.id
+    const id = new ObjectId(rawId);
+
+    const dbResponse = await global.connection.collection("groups").updateOne({ _id: id }, { $set: {open: false} });
+    return res.status(200).send({ message: "ok"})
+};
+//myGroups
+
+module.exports = { 
+    myGroups,
+    createGroup,
+    delGroup,
+    sortearGroup,
+ };

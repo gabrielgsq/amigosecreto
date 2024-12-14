@@ -48,7 +48,6 @@ function CriarContaForm() {
       setAlertMensage("Email já cadastrado")
     }
     handleShowDiv()
-    console.log(resposta)
   } 
   return (
     <>

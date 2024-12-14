@@ -5,6 +5,7 @@ import style from './Home.module.css'
 
 
 
+
 const Home = () => {
   const [auth, setAuth] = React.useState(false)
   const [activeMenu, setActiveMenu] = React.useState(1)
@@ -41,7 +42,14 @@ const Home = () => {
         <div className={style.cardMaster}>
           <div className={style.grid}>
             <div className={style.header}>
+              <div>
               Gerencie Seus Eventos
+              </div>
+              <div>
+              < Link to="/">
+                  <div className={style.sair}>Sair</div>
+                </Link>
+              </div>
             </div>
             <div className={style.col1}>
                 <Link to="/home" className={`${activeMenu==1 ? style.ativo : ""}`} onClick={()=>{setActiveMenu(1)}}>
@@ -53,16 +61,13 @@ const Home = () => {
                 <Link to="/home/alterarsenha" className={`${activeMenu==3 ? style.ativo : ""}`} onClick={()=>{setActiveMenu(3)}}>
                   <div>Alterar Senha</div>
                 </Link>
-                <Link to="/">
-                  <div>Sair</div>
-                </Link>
                 <Link to="/home/excluirconta" className={`${activeMenu==4 ? style.ativo : ""}`} onClick={()=>{setActiveMenu(4)}}>
                   <div>Excluir Conta</div>
                 </Link>
             </div>
             <div className={style.col2}>
               <div>
-                <Outlet />
+                <Outlet context={{ setActiveMenu }}/>
               </div>
             </div>
           </div>

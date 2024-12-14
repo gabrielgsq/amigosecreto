@@ -1,11 +1,15 @@
 import React from 'react'
 import style from './CriarGrupo.module.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 
 function CriarGrupo() {
   const [groupName, setGroupName] = React.useState("")
   const [visible, setVisible] = React.useState(false);
   const [alertMensage, setAlertMensage] = React.useState("");
   const [alertColor, setAlertColor] = React.useState("green");
+  const { setActiveMenu } = useOutletContext();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     if (visible) {
@@ -18,12 +22,43 @@ function CriarGrupo() {
     setVisible(true); // Ativa a animação
   };
 
-  function criarGrupo(e){
+  async function criarGrupo(e){
     e.preventDefault()
+    const token = localStorage.getItem('token');
+    const data = {
+      groupName
+    }
+    if (!groupName){
+      setAlertColor("#d24b4b")
+      setAlertMensage("Preencha o nome do Grupo")
+      setVisible(true);
+      return false
+    }
+    const resultado = await fetch("http://localhost:3000/groups",{
+      method: 'POST', // Método HTTP
+      headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho
+      },
+      body: JSON.stringify(data) // Dados a serem enviados no corpo da requisição
+    })
+    const resposta = await resultado.json()
+    if (resposta && resposta.message==="Grupo Criado!"){
+      // setAlertColor("#76d96f")
+      // setAlertMensage("Grupo Criado!")
+      setActiveMenu(2)
+      navigate('/home/meusgrupos')
+      // setTimeout(()=>{navigate('/home/meusgrupos');setActiveMenu(2)},1000)
+    }else{
+      setAlertColor("#d24b4b")
+      setAlertMensage("Não foi possível criar o grupo")
+    }
+    handleShowDiv()
+    
+    
     // ;(async ()=>{
     //   const data = {
     //     email: email,
-    //     senha: senha
     //   }
     //   const resposta = await fetch('http://localhost:3000/users/login', {
     //     method: 'POST', // Método HTTP
@@ -53,7 +88,7 @@ function CriarGrupo() {
               <label htmlFor="name">Nome do Grupo:</label>
               <input type="text" name="name" id="name" placeholder='Família Prontera' onChange={(e)=>{setGroupName(e.target.value)}} value={groupName}/>
               <button onClick={criarGrupo}>
-                Cria Grupo
+                Criar Grupo
               </button>
           </div>
       </form>

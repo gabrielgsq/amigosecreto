@@ -1,9 +1,12 @@
 const express = require('express');
-const { getAllGroups, createGroup } = require('../controllers/groupController');
+const { myGroups, createGroup, delGroup, sortearGroup } = require('../controllers/groupController');
+const { authenticateJWT } = require("../middlewares/authMiddleware")
 
 const router = express.Router();
 
-router.get('/', getAllGroups);
-router.post('/', createGroup);
+router.post('/',authenticateJWT, createGroup);
+router.post('/meusgrupos',authenticateJWT, myGroups);
+router.post('/delgroup',authenticateJWT, delGroup);
+router.post('/sorteargroup',authenticateJWT, sortearGroup);
 
 module.exports = router;

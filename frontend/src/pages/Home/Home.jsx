@@ -7,6 +7,7 @@ import style from './Home.module.css'
 
 const Home = () => {
   const [auth, setAuth] = React.useState(false)
+  const [activeMenu, setActiveMenu] = React.useState(1)
   const navigate = useNavigate();
 
   useEffect(()=>{
@@ -43,19 +44,19 @@ const Home = () => {
               Gerencie Seus Eventos
             </div>
             <div className={style.col1}>
-                <Link to="/home">
+                <Link to="/home" className={`${activeMenu==1 ? style.ativo : ""}`} onClick={()=>{setActiveMenu(1)}}>
                   <div>Criar Grupo</div>
                 </Link>
-                <Link to="/home/meusgrupos">
+                <Link to="/home/meusgrupos" className={`${activeMenu==2 ? style.ativo : ""}`} onClick={()=>{setActiveMenu(2)}}>
                   <div>Meus Grupos</div>
                 </Link>
-                <Link to="/home/alterarsenha">
+                <Link to="/home/alterarsenha" className={`${activeMenu==3 ? style.ativo : ""}`} onClick={()=>{setActiveMenu(3)}}>
                   <div>Alterar Senha</div>
                 </Link>
                 <Link to="/">
                   <div>Sair</div>
                 </Link>
-                <Link to="/home/excluirconta">
+                <Link to="/home/excluirconta" className={`${activeMenu==4 ? style.ativo : ""}`} onClick={()=>{setActiveMenu(4)}}>
                   <div>Excluir Conta</div>
                 </Link>
             </div>

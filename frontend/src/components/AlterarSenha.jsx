@@ -15,10 +15,12 @@ function AlterarSenha() {
      }
    }, [visible]);
  
+
    const handleShowDiv = () => {
      setVisible(true); // Ativa a animação
    };
  
+
    async function changePass(e){
      e.preventDefault()
      if (!oldPassword || !newPassword){
@@ -27,23 +29,35 @@ function AlterarSenha() {
       setVisible(true);
       return false
     }
+    const data = {
+      oldPassword,
+      newPassword
+    }
+    const token = localStorage.getItem('token');
     const resultado = await fetch("http://localhost:3000/users/changepass",{
       method: 'POST', // Método HTTP
       headers: {
-          'Content-Type': 'application/json' // Tipo de dado que estamos enviando
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho
       },
-      body: JSON.stringify(data) // Dados a serem enviados no corpo da requisição
+    body: JSON.stringify(data) // Dados a serem enviados no corpo da requisição
     })
     const resposta = await resultado.json()
-    if (resposta && resposta.menssage==="Cadastro realizado com sucesso"){
-      setAlertColor("#76d96f")
-      setAlertMensage("Cadastro realizado com sucesso")
+    if (resposta?.message && resposta?.message==="Senha atualizada"){
+      setAlertColor("green")
+      setAlertMensage("Senha atualizada")
+      setVisible(true);
+      handleShowDiv()
       
-    }else{
-      setAlertColor("#d24b4b")
-      setAlertMensage("Email já cadastrado")
+    }else if (resposta?.message && resposta?.message==="Senha incorreta!"){
+      setAlertColor("red")
+      setAlertMensage("Senha antiga incorreta")
+      setVisible(true);
+      handleShowDiv()
+
     }
     handleShowDiv()
+
      // ;(async ()=>{
      //   const data = {
      //     email: email,

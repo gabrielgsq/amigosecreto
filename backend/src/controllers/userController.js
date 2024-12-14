@@ -72,10 +72,28 @@ const isAuth = async (req, res) => {
         
 };
 
-function changePass(){
-    console.log(req.user)
-    return res.status(200).send({ message: "Autorizado" });
-}
+const changePass = async (req, res) => {
+    console.log("req.user: ",req.user)
+    console.log("req.body: ",req.body)
+    
+    const findEmail = await global.connection.collection("users").find({email:req.user.email}).toArray()
+
+    const oldPasswordFromForm = req.body.oldPassword
+    const oldPasswordFromDB = findEmail[0].senha
+    const corresponde = await bcrypt.compare(oldPasswordFromForm, oldPasswordFromDB);
+    try {
+        if (corresponde) {
+            const novaSenhaCrypt = await bcrypt.hash(req.body.newPassword, 12)
+            await global.connection.collection("users").updateOne({email:req.user.email}, {$set: {senha: novaSenhaCrypt}})
+            return res.status(200).send({ message: 'Senha atualizada' });
+        } else {
+            return res.status(200).send({ message: 'Senha incorreta!' });
+        }
+    } catch (erro) {
+        return res.status(403).send({ message: 'Erro ao verificar a senha:' });
+    }
+};
+
 
 module.exports = { 
     getAllUsers,

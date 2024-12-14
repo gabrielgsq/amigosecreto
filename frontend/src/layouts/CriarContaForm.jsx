@@ -1,5 +1,6 @@
 import React from 'react';
 import style from "./CriarContaForm.module.css";
+import { Link, useNavigate } from 'react-router-dom';
 
 function CriarContaForm() {
   const [email, setEmail] = React.useState("")
@@ -7,6 +8,7 @@ function CriarContaForm() {
   const [visible, setVisible] = React.useState(false);
   const [alertMensage, setAlertMensage] = React.useState("");
   const [alertColor, setAlertColor] = React.useState("green");
+  const navigate = useNavigate();
   React.useEffect(() => {
     if (visible) {
       const timer = setTimeout(() => setVisible(false), 4000); // Tempo total da animação (fadeIn + delay + fadeOut)
@@ -42,6 +44,7 @@ function CriarContaForm() {
     if (resposta && resposta.menssage==="Cadastro realizado com sucesso"){
       setAlertColor("#76d96f")
       setAlertMensage("Cadastro realizado com sucesso")
+      const tranfer = setInterval(()=>{entrar();clearTimeout(tranfer)},3000)
       
     }else{
       setAlertColor("#d24b4b")
@@ -49,6 +52,33 @@ function CriarContaForm() {
     }
     handleShowDiv()
   } 
+
+
+  function entrar(){
+    ;(async ()=>{
+      const data = {
+        email: email,
+        senha: password
+      }
+      const resposta = await fetch('http://localhost:3000/users/login', {
+        method: 'POST', // Método HTTP
+        headers: {
+            'Content-Type': 'application/json' // Tipo de dado que estamos enviando
+        },
+        body: JSON.stringify(data) // Dados a serem enviados no corpo da requisição
+        
+    })
+      const respostaTratada = await resposta.json()
+      if(!resposta.ok){
+        setAlertColor("#d24b4b")
+        setAlertMensage(respostaTratada.message)
+        setVisible(true);
+      }else{
+        localStorage.setItem('token', respostaTratada.token);
+        navigate('/home');
+      }
+    })()
+  }
   return (
     <>
           <div className={style.container}>

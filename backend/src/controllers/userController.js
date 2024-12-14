@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { ObjectId } = require('mongodb');
 
 const loginUser = async (req, res) => {
     const { email, senha } = req.body;
@@ -73,9 +74,6 @@ const isAuth = async (req, res) => {
 };
 
 const changePass = async (req, res) => {
-    console.log("req.user: ",req.user)
-    console.log("req.body: ",req.body)
-    
     const findEmail = await global.connection.collection("users").find({email:req.user.email}).toArray()
 
     const oldPasswordFromForm = req.body.oldPassword
@@ -94,6 +92,18 @@ const changePass = async (req, res) => {
     }
 };
 
+const ExcluirConta = async (req, res) => {
+    const findUserByEmail = await global.connection.collection("users").find({email:req.user.email}).toArray()
+    const rawId = req?.user?.id
+    const id = new ObjectId(rawId);
+    try{
+        const dbResponse = id && await global.connection.collection("users").deleteOne({ _id: id });
+        return res.status(200).send({ message: 'Excluído' });
+    }catch {
+        return res.status(200).send({ message: 'Erro ao excluir' });
+    }
+};
+ExcluirConta
 
 module.exports = { 
     getAllUsers,
@@ -101,4 +111,5 @@ module.exports = {
     loginUser,
     isAuth,
     changePass,
+    ExcluirConta,
  };

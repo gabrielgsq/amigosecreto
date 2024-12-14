@@ -3,12 +3,13 @@ const bcrypt = require('bcrypt');
 const { ObjectId } = require('mongodb');
 
 const createGroup = async (req, res) => {
-    const { groupName } = req.body
+    const { obs, groupName } = req.body
     const {id, email} = req.user
     const newGroup = {
         groupName,
         ownerId: id,
         ownerEmail: email,
+        obs,
         open: true
     }
     await global.connection.collection('groups').insertOne(newGroup)
@@ -30,7 +31,7 @@ const createGroup = async (req, res) => {
 
 const myGroups = async (req, res) => {
     const {id, email} = req.user
-    const findGroups = await global.connection.collection("groups").find({ownerEmail:email}).toArray()
+    const findGroups = await global.connection.collection("groups").find({ ownerId: id }).toArray()
     return res.status(200).send({ message: "ok",groups: findGroups})
 };
 

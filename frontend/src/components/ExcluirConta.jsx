@@ -1,8 +1,10 @@
 import React from 'react'
 import style from './excluirConta.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function ExcluirConta() {
- const [groupName, setGroupName] = React.useState("")
+  const navigate = useNavigate();
+  const [groupName, setGroupName] = React.useState("")
    const [visible, setVisible] = React.useState(false);
    const [alertMensage, setAlertMensage] = React.useState("");
    const [alertColor, setAlertColor] = React.useState("green");
@@ -18,31 +20,27 @@ function ExcluirConta() {
      setVisible(true); // Ativa a animação
    };
  
-   function criarGrupo(e){
+   async function excluirMinhaConta(e){
      e.preventDefault()
-     // ;(async ()=>{
-     //   const data = {
-     //     email: email,
-     //     senha: senha
-     //   }
-     //   const resposta = await fetch('http://localhost:3000/users/login', {
-     //     method: 'POST', // Método HTTP
-     //     headers: {
-     //         'Content-Type': 'application/json' // Tipo de dado que estamos enviando
-     //     },
-     //     body: JSON.stringify(data) // Dados a serem enviados no corpo da requisição
-         
-     // })
-     //   const respostaTratada = await resposta.json()
-     //   if(!resposta.ok){
-     //     setAlertColor("#d24b4b")
-     //     setAlertMensage(respostaTratada.message)
-     //     setVisible(true);
-     //   }else{
-     //     localStorage.setItem('token', respostaTratada.token);
-     //     navigate('/home');
-     //   }
-     // })()
+
+    const token = localStorage.getItem('token');
+    const resultado = await fetch("http://localhost:3000/users/excluirconta",{
+      method: 'POST', // Método HTTP
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho
+      },
+    })
+    const resposta = await resultado.json()
+    if (resposta?.message==="Excluído"){
+      localStorage.removeItem("token");
+      navigate('/login');
+    }else{
+      setAlertColor("red")
+      setAlertMensage("Não foi possível excluir o usuário")
+      setVisible(true);
+    }
+    
    }
  
    return (
@@ -50,7 +48,7 @@ function ExcluirConta() {
        {visible && (<div className={style.menssage} style={{backgroundColor:alertColor}}>{alertMensage}</div>)}
        <form action="" className={style.form}>
            <div>
-               <button onClick={criarGrupo}>
+               <button onClick={excluirMinhaConta}>
                  Excluir Conta!
                </button>
            </div>

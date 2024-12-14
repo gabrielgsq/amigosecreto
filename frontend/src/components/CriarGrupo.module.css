@@ -73,7 +73,7 @@
     gap: .3rem;
 }
 
-.form  div input{
+.form  div input, .form  div textarea{
     margin-bottom: 1rem;
 }
 
@@ -94,7 +94,7 @@
     color: #023208;
 }
 
-.form input {
+.form input, .form textarea {
     padding: 1rem;
     border-radius: 8px;
     outline: none;
@@ -102,7 +102,7 @@
     color: rgb(61, 44, 2);
 }
 
-.form input:focus    {
+.form input:focus, .form textarea:focus    {
     border: 2px solid rgb(255, 217, 0,.5);
     box-shadow: 0 0 8px 4px rgba(218, 165, 32, 0.2);
 }

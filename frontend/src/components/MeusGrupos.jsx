@@ -78,32 +78,7 @@ function MeusGrupos() {
     }
 
   
-    function criarGrupo(e){
-      e.preventDefault()
-      // ;(async ()=>{
-      //   const data = {
-      //     email: email,
-      //     senha: senha
-      //   }
-      //   const resposta = await fetch('http://localhost:3000/users/login', {
-      //     method: 'POST', // Método HTTP
-      //     headers: {
-      //         'Content-Type': 'application/json' // Tipo de dado que estamos enviando
-      //     },
-      //     body: JSON.stringify(data) // Dados a serem enviados no corpo da requisição
-          
-      // })
-      //   const respostaTratada = await resposta.json()
-      //   if(!resposta.ok){
-      //     setAlertColor("#d24b4b")
-      //     setAlertMensage(respostaTratada.message)
-      //     setVisible(true);
-      //   }else{
-      //     localStorage.setItem('token', respostaTratada.token);
-      //     navigate('/home');
-      //   }
-      // })()
-    }
+
     const copiarParaClipboard = async (texto) => {
       try {
         await navigator.clipboard.writeText(texto);
@@ -132,6 +107,9 @@ function MeusGrupos() {
                 <button onClick={(e)=>{e.preventDefault(); copiarParaClipboard(`http://localhost:5173/convite/${grupo._id}`)}}>
                   <img src="/svg/copy.png" alt="" />Copiar
                 </button>
+                <hr />
+                <div>Observações para o grupo:</div>
+                <div>{grupo.obs}</div>
                 <hr />
                 <div>Amigos já cadastrados:</div>
                 {grupo?.participantes?.length > 0 ? (<>

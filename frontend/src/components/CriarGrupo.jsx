@@ -5,6 +5,7 @@ import { useOutletContext } from 'react-router-dom';
 
 function CriarGrupo() {
   const [groupName, setGroupName] = React.useState("")
+  const [obs, setObs] = React.useState("")
   const [visible, setVisible] = React.useState(false);
   const [alertMensage, setAlertMensage] = React.useState("");
   const [alertColor, setAlertColor] = React.useState("green");
@@ -26,7 +27,8 @@ function CriarGrupo() {
     e.preventDefault()
     const token = localStorage.getItem('token');
     const data = {
-      groupName
+      groupName,
+      obs
     }
     if (!groupName){
       setAlertColor("#d24b4b")
@@ -79,7 +81,7 @@ function CriarGrupo() {
     //   }
     // })()
   }
-
+  const placeHolder = `Ex.: Olá, o envento será dia 24/12/2024 às 23:30 no endereço: Rua Alí perto, Bairro Chique - SP, APT 901, valor médio recomendado do presente de 50 até 100 reais.`
   return (
     <div className={style.container}>
       {visible && (<div className={style.menssage} style={{backgroundColor:alertColor}}>{alertMensage}</div>)}
@@ -87,6 +89,8 @@ function CriarGrupo() {
           <div>
               <label htmlFor="name">Nome do Grupo:</label>
               <input type="text" name="name" id="name" placeholder='Família Prontera' onChange={(e)=>{setGroupName(e.target.value)}} value={groupName}/>
+              <label htmlFor="obs">Obersvações para os participantes</label>
+              <textarea name="obs" id="obs" placeholder={placeHolder} rows="8" onChange={(e)=>{setObs(e.target.value)}} value={obs}></textarea>
               <button onClick={criarGrupo}>
                 Criar Grupo
               </button>

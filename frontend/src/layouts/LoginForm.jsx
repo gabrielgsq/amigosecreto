@@ -48,12 +48,18 @@ function LoginForm() {
     })()
   }
 
+  async function recuperarSenha(e) {
+    e.preventDefault()
+    console.log("ok")
+  }
+
   return (
     <>
       <div className={style.container}>
         {visible && (<div className={style.menssage} style={{backgroundColor:alertColor}}>{alertMensage}</div>)}
         <form action="" className={style.form}>
             <div>
+                <div className={style.titulo}>Login</div>
                 <label htmlFor="email">Email:</label>
                 <input type="text" name="email" id="email" placeholder='Ex.: emaildogabriel@gmail.com' onChange={(e)=>{setEmail(e.target.value)}} value={email}/>
                 <label htmlFor="password">Senha:</label>
@@ -61,7 +67,7 @@ function LoginForm() {
                   <button onClick={entrar}>
                     Entrar
                   </button>
-                <button>
+                <button onClick={recuperarSenha}>
                   Recuperar senha
                 </button>
             </div>

@@ -84,7 +84,9 @@ function CriarContaForm() {
           <div className={style.container}>
             {visible && (<div className={style.menssage} style={{backgroundColor:alertColor}}>{alertMensage}</div>)}
             <form action="#" className={style.form}>
+                
                 <div>
+                    <div className={style.titulo}>Cadastrar Conta</div>
                     <label htmlFor="email">*Email:</label>
                     <input type="text" name="email" id="email" placeholder='Ex.: emaildogabriel@gmail.com' onChange={(e)=>{setEmail(e.target.value)}} value={email}/>
                     <label htmlFor="password">*Senha:</label>

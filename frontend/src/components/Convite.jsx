@@ -37,7 +37,6 @@ function Convite() {
             const gruposResponse = await resposta.json()
             setOpen(gruposResponse.open)
             setgroupName(gruposResponse.groupName)
-            console.log(gruposResponse)
           }
           joinGroup()
         },[])
@@ -77,8 +76,7 @@ function Convite() {
             <div>
                 {open ? 
                 (<>
-                <h3>Convite para participar do Amigo secreto:<br/>{groupName}</h3>
-                <hr />
+                <div className={style.titulo}>Convite para participar do Amigo secreto:</div>
                 <label htmlFor="name"><strong>Nome:</strong></label>
                 <small><label htmlFor="name">(Evite nome que outro colega possa usar ou gere dúvida)</label></small>
                 <input type="text" name="name" id="name" placeholder='Ex.: Gabriel do RH' onChange={(e)=>{setNome(e.target.value)}} value={nome}/>

@@ -37,7 +37,6 @@ function ParticiparOk() {
             const gruposResponse = await resposta.json()
             setOpen(gruposResponse.open)
             setgroupName(gruposResponse.groupName)
-            console.log(gruposResponse)
           }
           joinGroup()
         },[])

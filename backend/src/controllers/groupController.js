@@ -50,7 +50,7 @@ const sortearGroup = async (req, res) => {
     const id = new ObjectId(rawId);
 
     //reativar abaixo para desativar grupo
-    // const dbResponse = await global.connection.collection("groups").updateOne({ _id: id }, { $set: {open: false} });
+    const dbResponse = await global.connection.collection("groups").updateOne({ _id: id }, { $set: {open: false} });
     // Sistema de envio de email
     async function enviarEmail() {
         // Configurar o transportador (transporter)

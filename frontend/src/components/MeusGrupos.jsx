@@ -29,7 +29,6 @@ function MeusGrupos() {
             body: "" // JSON.stringify(data) 
           })
         const gruposResponse = await resposta.json()
-        console.log(gruposResponse)
         setGrupos(gruposResponse.groups)
 
       }
@@ -55,7 +54,6 @@ function MeusGrupos() {
             })
             const respostaTratada = await resposta.json()
             setDbChanges((antigo)=>{setDbChanges(antigo+1)})
-            console.log(respostaTratada)
       })(id)
     }
 
@@ -73,7 +71,6 @@ function MeusGrupos() {
             })
             const respostaTratada = await resposta.json()
             setDbChanges((antigo)=>{setDbChanges(antigo+1)})
-            console.log(respostaTratada)
       })(id)
     }
 
@@ -85,12 +82,10 @@ function MeusGrupos() {
         setAlertColor("green")
         setAlertMensage("Link Copiado para Ctrl+C")
         setVisible(true);
-        console.log("Texto copiado para o clipboard!");
       } catch (err) {
         console.error("Erro ao copiar para o clipboard:", err);
       }
     };
-    console.log(grupos)
     return (
       <div className={style.container}>
         {visible && (<div className={style.menssage} style={{backgroundColor:alertColor}}>{alertMensage}</div>)}
@@ -144,6 +139,8 @@ function MeusGrupos() {
                   <hr />
                   <div>Sorteio realizado, e-mails enviados para os participantes 🎁
                   </div>
+                  <hr />
+                  <div>Certifique-se de que todos os participantes receberam o e-mail 😊</div>
                   <button onClick={(e)=>{e.preventDefault();deletarGrupo(grupo._id)}}>
                     Excluir Grupo
                   </button>

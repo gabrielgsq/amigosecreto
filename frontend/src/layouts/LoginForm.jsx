@@ -50,7 +50,6 @@ function LoginForm() {
 
   async function recuperarSenha(e) {
     e.preventDefault()
-    console.log("ok")
   }
 
   return (

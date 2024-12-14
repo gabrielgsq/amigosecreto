@@ -46,7 +46,7 @@ const MainLayout = () => {
               <Link to="/"><span>Amigo</span><span>Secreto</span></Link>
             </div>
             <div>
-            <Link to="/login">
+            <Link to="/login" id="logar">
               <button>
                 Logar
               </button>

@@ -19,8 +19,31 @@ function AlterarSenha() {
      setVisible(true); // Ativa a animação
    };
  
-   function criarGrupo(e){
+   async function changePass(e){
      e.preventDefault()
+     if (!oldPassword || !newPassword){
+      setAlertColor("#d24b4b")
+      setAlertMensage("Preencha todos os campos")
+      setVisible(true);
+      return false
+    }
+    const resultado = await fetch("http://localhost:3000/users/changepass",{
+      method: 'POST', // Método HTTP
+      headers: {
+          'Content-Type': 'application/json' // Tipo de dado que estamos enviando
+      },
+      body: JSON.stringify(data) // Dados a serem enviados no corpo da requisição
+    })
+    const resposta = await resultado.json()
+    if (resposta && resposta.menssage==="Cadastro realizado com sucesso"){
+      setAlertColor("#76d96f")
+      setAlertMensage("Cadastro realizado com sucesso")
+      
+    }else{
+      setAlertColor("#d24b4b")
+      setAlertMensage("Email já cadastrado")
+    }
+    handleShowDiv()
      // ;(async ()=>{
      //   const data = {
      //     email: email,
@@ -56,7 +79,7 @@ function AlterarSenha() {
                <hr />
                <label htmlFor="newPassword">Senha Nova:</label>
                <input type="password" name="newPassword" id="newPassword" placeholder='********' onChange={(e)=>{setNewPassword(e.target.value)}} value={newPassword}/>
-               <button onClick={criarGrupo}>
+               <button onClick={changePass}>
                  Atualizar Senha
                </button>
            </div>

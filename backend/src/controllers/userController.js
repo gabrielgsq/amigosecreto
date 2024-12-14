@@ -72,8 +72,15 @@ const isAuth = async (req, res) => {
         
 };
 
+function changePass(){
+    console.log(req.user)
+    return res.status(200).send({ message: "Autorizado" });
+}
+
 module.exports = { 
     getAllUsers,
     createUser,
     loginUser,
-    isAuth };
+    isAuth,
+    changePass,
+ };

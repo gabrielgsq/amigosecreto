@@ -29,7 +29,9 @@ function MeusGrupos() {
             body: "" // JSON.stringify(data) 
           })
         const gruposResponse = await resposta.json()
+        console.log(gruposResponse)
         setGrupos(gruposResponse.groups)
+
       }
       findGroups()
     },[dbChanges])
@@ -121,7 +123,7 @@ function MeusGrupos() {
         if (grupo.open){
         return(
           <>
-          <form action="" className={style.form}>
+          <form action="" className={style.form} key={grupo._id}>
             <div>
                 <div>Grupo: {grupo.groupName}</div>
                 <hr />
@@ -132,12 +134,18 @@ function MeusGrupos() {
                 </button>
                 <hr />
                 <div>Amigos já cadastrados:</div>
-                <ul>
-                  <li>✅Fulano</li>
-                  <li>✅Beltrano</li>
-                  <li>✅Sicrano</li>
-                  <li>✅Deltrano</li>
+                {grupo?.participantes?.length > 0 ? (<>
+                  <ul>
+                    {grupo.participantes && grupo.participantes.map((participante)=>{
+                      return (<>
+                        <li key={participante.email}> {participante.nome}</li>
+                      </>)
+                    })}
                 </ul>
+                </>) : (<>
+                  <p>Aguardando inscrições (divulgue seu link)</p>
+                </>)}
+                
                 <hr />
                 <div>Finalizar o cadastro e realizar o sorteio</div>
                 <button onClick={(e)=>{e.preventDefault();sortearGrupo(grupo._id)}}>
@@ -168,41 +176,7 @@ function MeusGrupos() {
         }
 
        })}
-        <form action="" className={style.form}>
-            <div>
-                <div>Grupo: Família Prontera</div>
-                <hr />
-                <div>Link para cadastro:</div>
-                <div>http://localhost:5173/convite/askld34jSDKJ</div>
-                <button>
-                  <img src="/svg/copy.png" alt="" />Copiar
-                </button>
-                <hr />
-                <div>Cadastrados:</div>
-                <ul>
-                  <li>✅Fulano</li>
-                  <li>✅Beltrano</li>
-                  <li>✅Sicrano</li>
-                  <li>✅Deltrano</li>
-                </ul>
-                <hr />
-                <div>Finalizar o cadastro e realizar o sorteio</div>
-                <button onClick={criarGrupo}>
-                  Sortear
-                </button>
-                <button onClick={criarGrupo}>
-                  Excluir Grupo
-                </button>
-            </div>
-        </form>
-        <form action="" className={style.form}>
-            <div>
-                <div>Grupo: Família Prontera</div>
-                <hr />
-                <div>Sorteio realizado, e-mails enviados para os participantes 🎁
-                </div>
-            </div>
-        </form>
+        
       </div>
     )
   }

@@ -34,6 +34,10 @@ const Home = () => {
   checkAuth();
   },[])
 
+  function sair(){
+    localStorage.removeItem("token");
+    navigate('/login');
+  }
 
   if (auth){
     return (
@@ -46,9 +50,7 @@ const Home = () => {
               Gerencie Seus Eventos
               </div>
               <div>
-              < Link to="/">
-                  <div className={style.sair}>Sair</div>
-                </Link>
+                  <div className={style.sair} onClick={sair}>Sair</div>
               </div>
             </div>
             <div className={style.col1}>

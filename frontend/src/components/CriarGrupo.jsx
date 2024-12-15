@@ -2,6 +2,7 @@ import React from 'react'
 import style from './CriarGrupo.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom';
+import url from "../frontconfig.js"
 
 function CriarGrupo() {
   const [groupName, setGroupName] = React.useState("")
@@ -36,7 +37,7 @@ function CriarGrupo() {
       setVisible(true);
       return false
     }
-    const resultado = await fetch("http://localhost:3000/groups",{
+    const resultado = await fetch(`${url}/groups`,{
       method: 'POST', // Método HTTP
       headers: {
           'Content-Type': 'application/json',

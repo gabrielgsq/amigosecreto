@@ -1,6 +1,7 @@
 import React from 'react'
-import style from './excluirConta.module.css';
+import style from './ExcluirConta.module.css';
 import { useNavigate } from 'react-router-dom';
+import url from "../frontconfig.js"
 
 function ExcluirConta() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function ExcluirConta() {
      e.preventDefault()
 
     const token = localStorage.getItem('token');
-    const resultado = await fetch("http://localhost:3000/users/excluirconta",{
+    const resultado = await fetch(`${url}/users/excluirconta`,{
       method: 'POST', // Método HTTP
       headers: {
         'Content-Type': 'application/json',

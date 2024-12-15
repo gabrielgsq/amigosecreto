@@ -1,5 +1,6 @@
 import React from 'react'
 import style from './AlterarSenha.module.css';
+import url from "../frontconfig.js"
 
 function AlterarSenha() {
   const [oldPassword, setOldPassword] = React.useState("")
@@ -34,7 +35,7 @@ function AlterarSenha() {
       newPassword
     }
     const token = localStorage.getItem('token');
-    const resultado = await fetch("http://localhost:3000/users/changepass",{
+    const resultado = await fetch(`${url}/users/changepass`,{
       method: 'POST', // Método HTTP
       headers: {
         'Content-Type': 'application/json',

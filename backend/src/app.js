@@ -9,7 +9,11 @@ const app = express();
 
 // Middlewares globais
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ['https://gsqhub.com', 'https://www.gsqhub.com'], // Domínios permitidos
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
+    credentials: true // Permitir cookies e cabeçalhos de autenticação
+}));
 app.use(bodyParser.urlencoded({ extended: true })); // Para dados de formulário HTML (x-www-form-urlencoded)
 app.use(bodyParser.json()); // Para dados JSON
 

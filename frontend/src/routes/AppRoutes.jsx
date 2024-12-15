@@ -5,14 +5,14 @@ import LoginForm from '../layouts/LoginForm.jsx';
 import Home from '../pages/Home/Home.jsx';
 import About from '../pages/About/About.jsx';
 import Dashboard from '../pages/Dashboard/Dashboard.jsx';
-import MainLayoutBody from '../layouts/mainLayoutBody.jsx';
+import MainLayoutBody from '../layouts/MainLayoutBody.jsx';
 import CriarContaForm from '../layouts/CriarContaForm.jsx';
 import CriarGrupo from '../components/CriarGrupo.jsx';
 import MeusGrupos from '../components/MeusGrupos.jsx';
 import AlterarSenha from '../components/AlterarSenha.jsx';
-import ExcluirConta from '../components/excluirConta.jsx';
+import ExcluirConta from '../components/ExcluirConta.jsx';
 import Convite from '../components/Convite.jsx';
-import ParticiparOk from '../components/participarOk.jsx';
+import ParticiparOk from '../components/ParticiparOk.jsx';
 
 const AppRoutes = () => {
   return (

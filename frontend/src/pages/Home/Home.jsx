@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Outlet, Link } from 'react-router-dom';
 import style from './Home.module.css'
+import url from "../../frontconfig.js"
 
 
 
@@ -17,7 +18,7 @@ const Home = () => {
       navigate('/login');
     }
   async function checkAuth() {
-    const response = await fetch('http://localhost:3000/users/auth', {
+    const response = await fetch(`${url}/users/auth`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

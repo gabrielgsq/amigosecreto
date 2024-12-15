@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import style from './MainLayout.module.css';
-import MainLayoutBody from './mainLayoutBody';
+import MainLayoutBody from './MainLayoutBody';
 import { useParams } from 'react-router-dom';
 
 

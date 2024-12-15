@@ -1,0 +1,40 @@
+server {
+    listen 80;
+    server_name gsqhub.com www.gsqhub.com;
+
+    # Redirecionar HTTP para HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name gsqhub.com www.gsqhub.com;
+
+    ssl_certificate /etc/letsencrypt/live/gsqhub.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/gsqhub.com/privkey.pem;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+
+    # Frontend: Servir o React build
+    root /var/www/amigosecreto/frontend/build;
+    index index.html;
+
+    # Servindo o frontend para qualquer rota não reconhecida
+    location / {
+        try_files $uri /index.html;
+    }
+
+    # Backend: Rotas específicas redirecionadas para o Express
+    location ~ ^/(users|products|auth|other-backend-routes)/ {
+        proxy_pass http://localhost:3000; # Porta do backend
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    error_page 404 /index.html;
+}

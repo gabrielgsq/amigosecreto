@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import style from "./Convite.module.css";
+import url from "../frontconfig.js"
 
 function ParticiparOk() {
     const [nome, setNome] = React.useState("")
@@ -27,7 +28,7 @@ function ParticiparOk() {
             const data = {
                 id: id
             }
-            const resposta = await fetch('http://localhost:3000/groups/checkgroup', {
+            const resposta = await fetch(`${url}/groups/checkgroup`, {
                   method: 'POST', // Método HTTP
                   headers: {
                     'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 import React from 'react';
 import style from "./LoginForm.module.css";
 import { Link, useNavigate } from 'react-router-dom';
+import url from "../frontconfig.js"
 
 function LoginForm() {
   const [email, setEmail] = React.useState("")
@@ -35,7 +36,7 @@ function LoginForm() {
         email: email,
         senha: senha
       }
-      const resposta = await fetch('http://localhost:3000/users/login', {
+      const resposta = await fetch(`${url}/users/login`, {
         method: 'POST', // Método HTTP
         headers: {
             'Content-Type': 'application/json' // Tipo de dado que estamos enviando
@@ -68,7 +69,7 @@ function LoginForm() {
         const data = {
           email: email,
         }
-        const resposta = await fetch('http://localhost:3000/users/recuperarsenha', {
+        const resposta = await fetch(`${url}/users/recuperarsenha`, {
           method: 'POST', // Método HTTP
           headers: {
               'Content-Type': 'application/json' // Tipo de dado que estamos enviando

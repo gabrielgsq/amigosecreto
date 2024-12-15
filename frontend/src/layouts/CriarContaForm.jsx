@@ -1,6 +1,7 @@
 import React from 'react';
 import style from "./CriarContaForm.module.css";
 import { Link, useNavigate } from 'react-router-dom';
+import url from "../frontconfig.js"
 
 function CriarContaForm() {
   const [email, setEmail] = React.useState("")
@@ -33,7 +34,7 @@ function CriarContaForm() {
       setVisible(true);
       return false
     }
-    const resultado = await fetch("http://localhost:3000/users",{
+    const resultado = await fetch(`${url}/users`,{
       method: 'POST', // Método HTTP
       headers: {
           'Content-Type': 'application/json' // Tipo de dado que estamos enviando
@@ -60,7 +61,7 @@ function CriarContaForm() {
         email: email,
         senha: password
       }
-      const resposta = await fetch('http://localhost:3000/users/login', {
+      const resposta = await fetch(`${url}/users/login`, {
         method: 'POST', // Método HTTP
         headers: {
             'Content-Type': 'application/json' // Tipo de dado que estamos enviando

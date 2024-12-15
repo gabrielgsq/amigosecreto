@@ -1,5 +1,6 @@
 import React from 'react'
 import style from './MeusGrupos.module.css';
+import url from "../frontconfig.js"
 
 function MeusGrupos() {
     const [groupName, setGroupName] = React.useState("")
@@ -8,8 +9,18 @@ function MeusGrupos() {
     const [grupos, setGrupos] = React.useState([])
     const [alertMensage, setAlertMensage] = React.useState("");
     const [alertColor, setAlertColor] = React.useState("green");
+    const [urlConvite, setUrlConvite] = React.useState("");
+    
 
-  
+    React.useEffect(()=>{
+      if (url==="http://localhost:3000"){
+        setUrlConvite("http://localhost:5173/")
+      }else{
+        setUrlConvite(url)
+      }
+
+    },[])
+
     React.useEffect(() => {
       if (visible) {
         const timer = setTimeout(() => setVisible(false), 2000); // Tempo total da animação (fadeIn + delay + fadeOut)
@@ -18,9 +29,10 @@ function MeusGrupos() {
     }, [visible]);
 
     React.useEffect(()=>{
+      
       async function findGroups() {
         const token = localStorage.getItem('token');
-        const resposta = await fetch('http://localhost:3000/groups/meusgrupos', {
+        const resposta = await fetch(`${url}/groups/meusgrupos`, {
               method: 'POST', // Método HTTP
               headers: {
                 'Content-Type': 'application/json',
@@ -44,7 +56,7 @@ function MeusGrupos() {
       ;(async(id)=>{
         const token = localStorage.getItem('token');
         const data = { id }
-            const resposta = await fetch('http://localhost:3000/groups/delgroup', {
+            const resposta = await fetch(`${url}/groups/delgroup`, {
               method: 'POST', // Método HTTP
               headers: {
                 'Content-Type': 'application/json',
@@ -61,7 +73,7 @@ function MeusGrupos() {
       ;(async(id)=>{
         const token = localStorage.getItem('token');
         const data = { id }
-            const resposta = await fetch('http://localhost:3000/groups/sorteargroup', {
+            const resposta = await fetch(`${url}/groups/sorteargroup`, {
               method: 'POST', // Método HTTP
               headers: {
                 'Content-Type': 'application/json',
@@ -98,8 +110,8 @@ function MeusGrupos() {
                 <div>Grupo: {grupo.groupName}</div>
                 <hr />
                 <div>Envie o link para seus amigos se cadastrarem:</div>
-                <div>http://localhost:5173/convite/{grupo._id}</div>
-                <button onClick={(e)=>{e.preventDefault(); copiarParaClipboard(`http://localhost:5173/convite/${grupo._id}`)}}>
+                <div>{urlConvite}/convite/{grupo._id}</div>
+                <button onClick={(e)=>{e.preventDefault(); copiarParaClipboard(`${urlConvite}/convite/${grupo._id}`)}}>
                   <img src="/svg/copy.png" alt="" />Copiar
                 </button>
                 <hr />

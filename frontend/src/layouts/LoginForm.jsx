@@ -8,6 +8,7 @@ function LoginForm() {
   const [visible, setVisible] = React.useState(false);
   const [alertMensage, setAlertMensage] = React.useState("");
   const [alertColor, setAlertColor] = React.useState("green");
+  const [recSenha, setRecSenha] = React.useState("Recuperar Senha");
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -23,6 +24,12 @@ function LoginForm() {
 
   function entrar(e){
     e.preventDefault()
+    if(!email || !senha){
+        setAlertColor("red")
+        setAlertMensage("Preencha todos os campos")
+        setVisible(true);
+        return false
+    }
     ;(async ()=>{
       const data = {
         email: email,
@@ -50,6 +57,38 @@ function LoginForm() {
 
   async function recuperarSenha(e) {
     e.preventDefault()
+    setRecSenha("Aguarde...")
+    const temporizador = setTimeout(()=>{setRecSenha("Recuperar Senha"); clearInterval(temporizador)},3000)
+    if(!email){
+        setAlertColor("red")
+        setAlertMensage("Preencha o Campo Email")
+        setVisible(true);
+    }else{
+      ;(async ()=>{
+        const data = {
+          email: email,
+        }
+        const resposta = await fetch('http://localhost:3000/users/recuperarsenha', {
+          method: 'POST', // Método HTTP
+          headers: {
+              'Content-Type': 'application/json' // Tipo de dado que estamos enviando
+          },
+          body: JSON.stringify(data) // Dados a serem enviados no corpo da requisição
+          
+      })
+        const respostaTratada = await resposta.json()
+        console.log(respostaTratada)
+        if(respostaTratada.message=='Email encontrado'){
+          setAlertColor("green")
+          setAlertMensage("Nova senha enviada para o e-mail")
+          setVisible(true);
+        }else{
+          setAlertColor("red")
+          setAlertMensage("Email não cadastradao")
+          setVisible(true);
+        }
+      })()
+    }
   }
 
   return (
@@ -66,8 +105,8 @@ function LoginForm() {
                   <button onClick={entrar}>
                     Entrar
                   </button>
-                <button onClick={recuperarSenha}>
-                  Recuperar senha
+                <button onClick={recuperarSenha} style={{background: recSenha=="Aguarde..." ? "gray": "", cursor: recSenha=="Aguarde..." ? "default": "pointer"}} disabled={recSenha === "Aguarde..."}>
+                  {recSenha}
                 </button>
             </div>
         </form>

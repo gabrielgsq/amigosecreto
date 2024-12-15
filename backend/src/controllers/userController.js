@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { ObjectId } = require('mongodb');
+const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 const loginUser = async (req, res) => {
     const { email, senha } = req.body;
@@ -103,7 +105,71 @@ const ExcluirConta = async (req, res) => {
         return res.status(200).send({ message: 'Erro ao excluir' });
     }
 };
-ExcluirConta
+
+function gerarSenhaFraca() {
+    const caracteres = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnopqrstuvwxyz123456789';
+    const tamanho = 6;
+    let senha = '';
+
+    for (let i = 0; i < tamanho; i++) {
+        const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
+        senha += caracteres[indiceAleatorio];
+    }
+
+    return senha;
+}
+
+
+const recuperarSenha = async (req, res) => {
+    const email = req.body.email
+    const findUserByEmail = await global.connection.collection("users").find({ email }).toArray()
+    try{
+        if (findUserByEmail.length>0){
+            const novaSenha = gerarSenhaFraca()
+            const novaSenhaCrypt = await bcrypt.hash(novaSenha, 12)
+            await global.connection.collection("users").updateOne({email}, {$set: {senha: novaSenhaCrypt}})
+            const mailOptions = {
+                from: process.env.EMAIL,
+                to: findUserByEmail[0].email, // O email do presenteador
+                subject: 'Amigo Secreto 2024 - Senha Redefinida',
+                html: `
+                    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 10px; padding: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+                        <h1 style="color: #ff4500; text-align: center;">🎄 Amigo Secreto 2024 🎄</h1>
+                        <p>Olá, <b>${findUserByEmail[0].email}</b>!</p>
+                        <p>Está é uma mensagem do sistema Amigo Secreto 2024,</p>
+                        <p>Informamos que sua senha foi redefinida para: <b>${novaSenha}</b>.</p>                        
+                        <p style="text-align: center; color: #888; font-size: 12px; margin-top: 40px;">
+                            Este email foi enviado automaticamente pelo sistema do Amigo Secreto 2024.
+                        </p>
+                    </div>
+                `
+            };
+            try {
+                // Enviar o email
+                const transporter = nodemailer.createTransport({
+                    host: 'smtp.hostinger.com',
+                    port: 465,
+                    secure: true,
+                    auth: {
+                        user: process.env.EMAIL,
+                        pass: process.env.SENHA
+                    },
+                    // logger: true, // Habilita logs detalhados
+                    // debug: true   // Habilita modo de depuração
+                });
+                const info = await transporter.sendMail(mailOptions);
+                return res.status(200).send({ message: `Email encontrado` });
+            } catch (erro) {
+                console.error('Erro ao enviar email:', erro);
+            }
+        }else{
+            return res.status(403).send({ message: `Email não cadastrado` });
+        }
+        
+    }catch {
+        return res.status(403).send({ message: 'Não foi possível' });
+    }
+};
 
 module.exports = { 
     getAllUsers,
@@ -112,4 +178,5 @@ module.exports = {
     isAuth,
     changePass,
     ExcluirConta,
+    recuperarSenha,
  };

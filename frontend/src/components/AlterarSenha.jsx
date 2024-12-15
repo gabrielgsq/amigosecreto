@@ -58,30 +58,6 @@ function AlterarSenha() {
 
     }
     handleShowDiv()
-
-     // ;(async ()=>{
-     //   const data = {
-     //     email: email,
-     //     senha: senha
-     //   }
-     //   const resposta = await fetch('http://localhost:3000/users/login', {
-     //     method: 'POST', // Método HTTP
-     //     headers: {
-     //         'Content-Type': 'application/json' // Tipo de dado que estamos enviando
-     //     },
-     //     body: JSON.stringify(data) // Dados a serem enviados no corpo da requisição
-         
-     // })
-     //   const respostaTratada = await resposta.json()
-     //   if(!resposta.ok){
-     //     setAlertColor("#d24b4b")
-     //     setAlertMensage(respostaTratada.message)
-     //     setVisible(true);
-     //   }else{
-     //     localStorage.setItem('token', respostaTratada.token);
-     //     navigate('/home');
-     //   }
-     // })()
    }
  
    return (

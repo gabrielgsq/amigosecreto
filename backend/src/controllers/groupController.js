@@ -16,19 +16,6 @@ const createGroup = async (req, res) => {
     }
     await global.connection.collection('groups').insertOne(newGroup)
     return res.status(200).send({ message: "Grupo Criado!" })
-        // const bcrypt = require('bcrypt');
-    
-        // const findEmail = await global.connection.collection("users").find({email:email}).toArray()
-        // if(!findEmail.length){
-        //     const newUser = {
-        //         email,
-        //         senha: await bcrypt.hash(senha, 12)
-        //     }
-        //     await global.connection.collection('users').insertOne(newUser)
-        //     return res.status(200).send({menssage:"Cadastro realizado com sucesso"})
-        // }else{
-        //     return res.status(409).send({menssage:"E-mail já cadastrado"})
-        // }    
 };
 
 const myGroups = async (req, res) => {

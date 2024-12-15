@@ -47,40 +47,14 @@ function CriarGrupo() {
     })
     const resposta = await resultado.json()
     if (resposta && resposta.message==="Grupo Criado!"){
-      // setAlertColor("#76d96f")
-      // setAlertMensage("Grupo Criado!")
       setActiveMenu(2)
       navigate('/home/meusgrupos')
-      // setTimeout(()=>{navigate('/home/meusgrupos');setActiveMenu(2)},1000)
     }else{
       setAlertColor("#d24b4b")
       setAlertMensage("Não foi possível criar o grupo")
     }
     handleShowDiv()
     
-    
-    // ;(async ()=>{
-    //   const data = {
-    //     email: email,
-    //   }
-    //   const resposta = await fetch('http://localhost:3000/users/login', {
-    //     method: 'POST', // Método HTTP
-    //     headers: {
-    //         'Content-Type': 'application/json' // Tipo de dado que estamos enviando
-    //     },
-    //     body: JSON.stringify(data) // Dados a serem enviados no corpo da requisição
-        
-    // })
-    //   const respostaTratada = await resposta.json()
-    //   if(!resposta.ok){
-    //     setAlertColor("#d24b4b")
-    //     setAlertMensage(respostaTratada.message)
-    //     setVisible(true);
-    //   }else{
-    //     localStorage.setItem('token', respostaTratada.token);
-    //     navigate('/home');
-    //   }
-    // })()
   }
   const placeHolder = `Ex.: Olá, o envento será dia 24/12/2024 às 23:30 no endereço: Rua Alí perto, Bairro Chique - SP, APT 901, valor médio recomendado do presente de 50 até 100 reais.`
   return (

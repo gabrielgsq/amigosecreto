@@ -14,7 +14,7 @@ function MeusGrupos() {
 
     React.useEffect(()=>{
       if (url==="http://localhost:3000"){
-        setUrlConvite("http://localhost:5173/")
+        setUrlConvite("http://localhost:5173")
       }else{
         setUrlConvite(url)
       }
@@ -82,6 +82,11 @@ function MeusGrupos() {
               body: JSON.stringify(data) 
             })
             const respostaTratada = await resposta.json()
+
+            setAlertColor("yellow")
+            setAlertMensage(respostaTratada.message)
+            setVisible(true);
+            console.log(respostaTratada)
             setDbChanges((antigo)=>{setDbChanges(antigo+1)})
       })(id)
     }

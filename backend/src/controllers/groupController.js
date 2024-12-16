@@ -37,7 +37,6 @@ const sortearGroup = async (req, res) => {
     const id = new ObjectId(rawId);
 
     //reativar abaixo para desativar grupo
-    const dbResponse = await global.connection.collection("groups").updateOne({ _id: id }, { $set: {open: false} });
     // Sistema de envio de email
     async function enviarEmail() {
         // Configurar o transportador (transporter)
@@ -53,6 +52,22 @@ const sortearGroup = async (req, res) => {
         // Configurar o email
         const group = await global.connection.collection("groups").find({ _id: id }).toArray()
         const obsToGpt = await global.connection.collection("groups").find({ _id: id }).toArray();
+        console.log("obsToGpt: ",(!obsToGpt[0].participantes))
+
+        if (!obsToGpt[0]?.participantes){
+            console.log("Rejeitado, não há participantes")
+            return res.status(403).send({ message: "Não há participantes inscritos"})
+
+        }else if(!!obsToGpt[0]?.participantes && obsToGpt[0]?.participantes.length<2){
+            console.log("Rejeitado, deve haver 2 ou mais participantes")
+            return res.status(403).send({ message: "Deve haver ao menos 2 participantes"})
+
+        }
+        console.log("tudo certo")
+        const dbResponse = await global.connection.collection("groups").updateOne({ _id: id }, { $set: {open: false} });
+
+        console.log("obsToGpt: ",(!!obsToGpt[0].participantes && obsToGpt[0].participantes.length>2), obsToGpt[0] )
+
         const sorteioRealizado = await sortearAmigoOculto(group[0].participantes,obsToGpt[0].obs)
         const obs = obsToGpt[0].obs || null
         sorteioRealizado.forEach(async (destinatario)=>{
@@ -99,12 +114,12 @@ const sortearGroup = async (req, res) => {
             }
         })
 
+    return res.status(200).send({ message: "Sorteio Realizado"})
         
     }
     
     enviarEmail();
     // fim do sistema de envio de email
-    return res.status(200).send({ message: "ok"})
 };
 
 
@@ -134,7 +149,7 @@ const participar = async (req, res) => {
     const dbResponse = await global.connection.collection("groups").find({ _id: id }).toArray();
     // const responseJson = await dbResponse.json()
     console.log(dbResponse)
-    if (!dbResponse[0].open){
+    if (!dbResponse[0]?.open){
         return res.status(401).send({message: "closed group"})
     }
 

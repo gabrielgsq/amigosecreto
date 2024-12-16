@@ -5,12 +5,13 @@ const userRoutes = require('./routes/userRoutes');
 const groupRoutes = require('./routes/groupRoutes');
 
 
+
 const app = express();
 
 // Middlewares globais
 app.use(express.json());
 app.use(cors({
-    origin: ['https://gsqhub.com', 'https://www.gsqhub.com'], // Domínios permitidos
+    origin: ['https://gsqhub.com', 'https://www.gsqhub.com', 'http://localhost:5173'], // Domínios permitidos
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos HTTP permitidos
     credentials: true // Permitir cookies e cabeçalhos de autenticação
 }));
